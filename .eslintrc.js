@@ -42,10 +42,10 @@ module.exports = {
             }
         ],
         '@typescript-eslint/semi': ['error', 'always'],
-        'arrow-parens': ['error', 'as-needed'],
+        'arrow-parens': ['warn', 'as-needed'],
         'comma-dangle': ['error', 'never'],
-        curly: ['error', 'multi'],
-        'eol-last': ['error', 'always'],
+
+        'eol-last': ['warn', 'always'],
         'import/no-extraneous-dependencies': [
             'error',
             {
@@ -66,12 +66,12 @@ module.exports = {
                 ignoreUrls: true
             }
         ],
-        'newline-before-return': 'error',
-        'no-extra-parens': 'error',
+        'newline-before-return': 'warn',
+        'no-extra-parens': 'warn',
         'no-console': 'off',
         'no-param-reassign': 'off',
         'no-plusplus': 'off',
-        'no-trailing-spaces': 'error',
+        'no-trailing-spaces': 'warn',
         'no-underscore-dangle': [
             'error',
             {
@@ -80,7 +80,7 @@ module.exports = {
             }
         ],
         'object-curly-spacing': ['error', 'always'],
-        'prefer-const': 'error',
+        'prefer-const': 'warn',
         radix: ['error', 'as-needed'],
         semi: [2, 'always'],
         'sort-keys': 'error',
