@@ -13,6 +13,8 @@
   "author": "Itay Ta'asiri",
   "license": "MIT",
   "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/cors": "^2.8.12",
     "@types/node": "^16.0.1",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
@@ -37,6 +39,8 @@
     "@types/express-session": "^1.17.4",
     "@types/passport": "^1.0.7",
     "@types/passport-saml": "^1.1.2",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "fs": "^0.0.1-security",

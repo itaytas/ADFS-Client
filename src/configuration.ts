@@ -6,6 +6,7 @@ config();
 interface IConfiguration {
     application: IApplicationConfiguration;
     authentication: IAuthenticationConfiguration;
+    cors: ICORSConfiguration;
 }
 
 // ################### Application Configuration ###################
@@ -17,8 +18,18 @@ interface IApplicationConfiguration {
 }
 // ################### Application Configuration ###################
 
-// ################### Authentication Configuration ###################
+// ################### CORS Configuration ###################
+interface ICORSConfiguration {
+    allowedHeaders: string[];
+    credentials: boolean;
+    crossDomain: boolean;
+    exposedHeaders: string[];
+    methods: string;
+    origin: string;
+}
+// ################### CORS Configuration ###################
 
+// ################### Authentication Configuration ###################
 interface IProfileExtractor {
     displayName: string;
     email: string;
@@ -64,6 +75,22 @@ const Configuration: IConfiguration = {
                 process.env.SAML_ENTRY_POINT || 'http://localhost:8080/simplesaml/saml2/idp/SSOService.php',
             issuer: process.env.SAML_ISSUER || 'http://localhost:5000/metadata.xml'
         }
+    },
+    cors: {
+        allowedHeaders: [
+            'Origin',
+            'X-Requested-With',
+            'Content-Type',
+            'Accept',
+            'X-Access-Token',
+            'Authorization',
+            'Access-Control-Allow-Origin'
+        ],
+        credentials: true,
+        crossDomain: true,
+        exposedHeaders: ['content-checksum', 'set-cookie'],
+        methods: 'GET,HEAD,OPTIONS,PUT,POST,DELETE',
+        origin: '*'
     }
 };
 

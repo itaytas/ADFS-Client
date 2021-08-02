@@ -4,6 +4,7 @@ import { Strategy as SamlStrategy, VerifiedCallback, Profile } from 'passport-sa
 import path from 'path';
 import { Configuration, IProfileExtractor } from '../configuration';
 import { LooseObject } from '../interface/LooseObject';
+import { createMetadataFile } from '../samlMetadata';
 
 class PassportClient {
     constructor() {
@@ -46,6 +47,34 @@ class PassportClient {
         }
 
         return dynamicProfile;
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    public createLoggedInUserAuthorizeMiddleware(args: { shouldRedirectToHome: boolean }) {
+        return (req: Request, res: Response, next: NextFunction) => {
+            const { user } = req;
+
+            if (!user) {
+                console.error('Authorization error: user tried to access route without user on the session');
+                // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+                args.shouldRedirectToHome ? res.redirect('/auth/saml') : res.redirect('/unauthorized');
+            } else {
+                next();
+            }
+        };
+    }
+
+    // eslint-disable-next-line class-methods-use-this
+    public createGetMetadataRoute(entityId: string, callbackUrl: string) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const file = await createMetadataFile(entityId, callbackUrl);
+
+                res.sendFile(path.resolve(__dirname, '../../..', file));
+            } catch (error) {
+                console.error(error);
+            }
+        };
     }
 }
 

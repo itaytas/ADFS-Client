@@ -3,10 +3,16 @@ import fs from 'fs';
 import http from 'http';
 import https from 'https';
 import { Configuration, IConfiguration } from './configuration';
+import { applyRoutesMiddleware } from './middleware/applyRoutesMiddleware';
+import { applySamlMiddleware } from './middleware/applySamlMiddleware';
+import { applyThirdPartyMiddleware } from './middleware/applyThirdPartyMiddleware';
 
 function adfsClient(credentials: any, config: IConfiguration): void {
     console.log('starting');
     const app = express();
+    applyThirdPartyMiddleware(app);
+    applySamlMiddleware(app);
+    applyRoutesMiddleware(app);
     const httpServer = http.createServer(app).listen(8080);
     const httpsServer = https.createServer(credentials, app).listen(8443);
 }
